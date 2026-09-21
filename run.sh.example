@@ -23,8 +23,9 @@ export HUM_MAX="70.0"
 
 # WhatsApp OpenWA Configuration
 export OPENWA_BASE_URL="http://localhost:2785"
-export OPENWA_SESSION_ID="default"
+export OPENWA_SESSION_ID="your_openwa_session_id_here"
 export OPENWA_API_KEY="your_openwa_api_key_here"
+# No WA
 export WHATSAPP_TARGET="6281234567890@c.us"
 
 # ============================================================
