@@ -1,0 +1,17 @@
+<circuit version="1.1.0-SR2" rev="260312" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="Dht22" CircId="Dht22-3" mainComp="false" Show_id="false" Show_Val="false" Pos="-48,-396" rotation="0" hflip="1" vflip="1" label="Dht22-3" idLabPos="-28,-32" labelrot="0" valLabPos="-16,20" valLabRot="0" DHT22="DHT11" TempInc="0.5 °C" HumiInc="0.5 _%" />
+
+<item itemtype="Subcircuit" CircId="Uno-9" mainComp="false" Show_id="true" Show_Val="false" Pos="-12,-464" rotation="0" hflip="1" vflip="1" label="Uno-9" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="false">
+<mainCompProps MainCompId="mega328-109" Frequency="16 MHz" Program="deteksi_suhu.hex" Auto_Load="true" saveEepr="true" MainMcu="true" SerialMon="-1" />
+</item>
+
+<item itemtype="SerialPort" CircId="SerialPort-11" mainComp="false" Show_id="false" Show_Val="false" Pos="-8,-512" rotation="0" hflip="1" vflip="1" label="SerialPort-11" idLabPos="-20,-32" labelrot="0" valLabPos="-16,20" valLabRot="0" Auto="false" Port="/tmp/ttyV0" Baudrate="9600 _Bd" DataBits="8 _bits" StopBits="1 _bits" SerialMon="false" />
+
+<item itemtype="Connector" uid="Connector-47" startpinid="SerialPort-11-pin1" endpinid="Uno-9-1" pointList="-48,-504,-48,-440,-4,-440" />
+
+<item itemtype="Connector" uid="Connector-48" startpinid="SerialPort-11-pin0" endpinid="Uno-9-0" pointList="-48,-520,-48,-448,-4,-448" />
+
+<item itemtype="Connector" uid="Connector-49" startpinid="Dht22-3-inPin" endpinid="Uno-9-2" pointList="-84,-400,-84,-432,-4,-432" />
+
+</circuit>
