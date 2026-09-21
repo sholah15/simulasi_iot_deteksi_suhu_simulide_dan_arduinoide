@@ -1,4 +1,6 @@
+
 run.sh
+server_room.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
