@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# ============================================================
+# SET ENVIRONMENT VARIABLES
+# ============================================================
+
+# MQTT Configuration
+export MQTT_BROKER="localhost"
+export MQTT_PORT="1883"
+export MQTT_TOPIC="server/room/sensor"
+export MQTT_USERNAME="admin"
+export MQTT_PASSWORD="password_rahasia_123"
+
+# Serial Configuration
+export SERIAL_PORT="/tmp/ttyV1"
+export BAUD_RATE="9600"
+
+# Sensor Threshold (Untuk WhatsApp Alert)
+export TEMP_MIN="18.0"
+export TEMP_MAX="30.0"
+export HUM_MIN="30.0"
+export HUM_MAX="70.0"
+
+# WhatsApp OpenWA Configuration
+export OPENWA_BASE_URL="http://localhost:2785"
+export OPENWA_SESSION_ID="default"
+export OPENWA_API_KEY="your_openwa_api_key_here"
+export WHATSAPP_TARGET="6281234567890@c.us"
+
+# ============================================================
+# RUN PYTHON SCRIPT
+# ============================================================
+
+# Mengambil argumen file python (default: deteksi_suhu.py)
+SCRIPT_NAME="${1:-deteksi_suhu.py}"
+
+echo "🚀 Memuat environment variables..."
+echo "▶️ Menjalankan $SCRIPT_NAME..."
+
+python3 "$SCRIPT_NAME"
