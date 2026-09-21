@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>IoT Server Room Monitoring</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Monitoring Suhu & Kelembapan Ruang Server</h2>
+        
+        <div class="row text-center mb-4">
+            <div class="col-md-6">
+                <div class="card p-3 shadow-sm">
+                    <h5>Suhu Terakhir</h5>
+                    <h2 id="last-temp" class="text-danger">-- °C</h2>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-3 shadow-sm">
+                    <h5>Kelembapan Terakhir</h5>
+                    <h2 id="last-hum" class="text-primary">-- %</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-4 shadow-sm">
+            <canvas id="sensorChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('sensorChart').getContext('2d');
+        const sensorChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Suhu (°C)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [],
+                    tension: 0.1
+                }, {
+                    label: 'Kelembapan (%)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    data: [],
+                    tension: 0.1
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        function fetchData() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) return;
+                    
+                    const labels = data.map(row => row.timestamp);
+                    const temps = data.map(row => row.temperature);
+                    const hums = data.map(row => row.humidity);
+
+                    // Update nilai terakhir
+                    document.getElementById('last-temp').innerText = temps[temps.length - 1] + " °C";
+                    document.getElementById('last-hum').innerText = hums[hums.length - 1] + " %";
+
+                    // Update Grafik
+                    sensorChart.data.labels = labels;
+                    sensorChart.data.datasets[0].data = temps;
+                    sensorChart.data.datasets[1].data = hums;
+                    sensorChart.update();
+                });
+        }
+
+        setInterval(fetchData, 3000); // Refresh data setiap 3 detik
+        fetchData();
+    </script>
+</body>
+</html>
